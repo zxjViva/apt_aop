@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.zxj.needle_annotations.ClassAnotation;
 import com.zxj.needle_annotations.GaAnnotation;
+import com.zxj.needle_annotations.SorceAnotation;
 import com.zxj.needle_runtime.GaTracker;
 import com.zxj.needle_runtime.Needle;
 
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -48,19 +49,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+    @SorceAnotation
+    @ClassAnotation
     @GaAnnotation(category = "category1",label = "label1",action = "action1")
     private void bt1() {
         showName = "bt1";
         Toast.makeText(this,showName,Toast.LENGTH_SHORT).show();
     }
+    @SorceAnotation
+    @ClassAnotation
     @GaAnnotation(category = "category2",label = "label2",action = "action2")
     private void bt2() {
         showName = "bt2";
         Toast.makeText(this,showName,Toast.LENGTH_SHORT).show();
     }
+    @SorceAnotation
+    @ClassAnotation
     @GaAnnotation(category = "category3",label = "label3",action = "action3")
     private void bt3() {
         showName = "bt3";
         Toast.makeText(MainActivity.this,showName,Toast.LENGTH_SHORT).show();
     }
+
 }

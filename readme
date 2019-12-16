@@ -1,11 +1,55 @@
-
 相关理论知识网址：
-1.Java编译时注解处理器（APT）详解 https://blog.csdn.net/qq_20521573/article/details/82321755
-3.Android APT 自动生成代码实践 https://blog.csdn.net/u010976213/article/details/91999309
-2.JavaPoet简介 https://blog.csdn.net/Viiou/article/details/86388268
-2.深入理解Android之AOP https://blog.csdn.net/innost/article/details/49387395
-4.aspectJ 语法 https://blog.csdn.net/zhengchao1991/article/details/53391244
-https://blog.csdn.net/weixin_33850890/article/details/88578374
+1、JAVA 注解的基本原理 https://www.cnblogs.com/yangming1996/p/9295168.html
+2、Java编译时注解处理器（APT）详解 https://blog.csdn.net/qq_20521573/article/details/82321755
+3、Android APT 自动生成代码实践 https://blog.csdn.net/u010976213/article/details/91999309
+4、JavaPoet简介 https://blog.csdn.net/Viiou/article/details/86388268
+5、深入理解Android之AOP https://blog.csdn.net/innost/article/details/49387395
+6、aspectJ 语法 https://blog.csdn.net/zhengchao1991/article/details/53391244
+7、关于Apt注解实践与总结【包含20篇博客】 https://blog.csdn.net/weixin_33850890/article/details/88578374
+
+一、注解
+   1.元注解
+         @Target：注解的作用目标
+         @Retention：注解的生命周期
+         @Documented：注解是否应当被包含在 JavaDoc 文档中
+         @Inherited：是否允许子类继承该注解
+
+   2.注解作用域
+         ElementType.TYPE：允许被修饰的注解作用在类、接口和枚举上
+         ElementType.FIELD：允许作用在属性字段上
+         ElementType.METHOD：允许作用在方法上
+         ElementType.PARAMETER：允许作用在方法参数上
+         ElementType.CONSTRUCTOR：允许作用在构造器上
+         ElementType.LOCAL_VARIABLE：允许作用在本地局部变量上
+         ElementType.ANNOTATION_TYPE：允许作用在注解上
+         ElementType.PACKAGE：允许作用在包上
+
+   3.注解生命周期
+         RetentionPolicy.SOURCE：当前注解编译期可见，不会写入 class 文件
+         RetentionPolicy.CLASS：类加载阶段丢弃，会写入 class 文件
+         RetentionPolicy.RUNTIME：永久保存，可以反射获取
+
+   4.总结
+          （1）注解如果没有实际的处理器本身没有太多实际意义
+          （2）在app\build\intermediates\javac 目录下可以看到class 文件，可以方便理解各种生命周期，
+             其实对于后续processor来说生命如果不是为了取值那么生命周期实际的区别并不大
+
+二、注解处理器APT Annotation Processing Tool
+
+    1、什么是APT
+        就是可以在代码编译期间对注解进行处理，并且生成Java文件， 减少手动的代码输入。
+        注解我们平时用到的比较多的可能会是运行时注解，比如大名鼎鼎的retrofit就是用运行时注解，
+        通过动态代理来生成网络请求。编译时注解平时开发中可能会涉及的比较少，但并不是说不常用，
+        比如我们经常用的轮子Dagger2, ButterKnife, EventBus3 都在用。
+
+    2、大概原理
+        Java API 已经提供了扫描源码并解析注解的框架，开发者可以通过继承 AbstractProcessor 类来实现自己的注解解析逻辑
+        。APT 的原理就是在注解了某些代码元素（如字段、函数、类等）后，在编译时编译器会检查 AbstractProcessor 的子类，
+        并且自动调用其 process() 方法，然后将添加了指定注解的所有代码元素作为参数传递给该方法
+        ，开发者再根据注解元素在编译期输出对应的 Java 代码
+
+    3、AbstractProcessor 简介
+        直接看main\java\com\zxj\needle_compiler\GaProcessor.java
 
 几个小问题：
     1.instance run 有时候会导致 processor不走
@@ -13,6 +57,7 @@ https://blog.csdn.net/weixin_33850890/article/details/88578374
       否则不走processor
     3.annotation 中的参数只能是常量
     4.apply plugin: 'android-aspectjx' 在使用到aspectj的module里都要加上
+
 埋点有几种
 1、性能监控
     1.1、方法执行时间
