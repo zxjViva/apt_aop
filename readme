@@ -1,0 +1,25 @@
+
+相关理论知识网址：
+1.Java编译时注解处理器（APT）详解 https://blog.csdn.net/qq_20521573/article/details/82321755
+3.Android APT 自动生成代码实践 https://blog.csdn.net/u010976213/article/details/91999309
+2.JavaPoet简介 https://blog.csdn.net/Viiou/article/details/86388268
+2.深入理解Android之AOP https://blog.csdn.net/innost/article/details/49387395
+4.aspectJ 语法 https://blog.csdn.net/zhengchao1991/article/details/53391244
+https://blog.csdn.net/weixin_33850890/article/details/88578374
+
+几个小问题：
+    1.instance run 有时候会导致 processor不走
+    2.gradle 5以上需要在compiler中添加 implementation 'com.google.auto.service:auto-service:1.0-rc4' 和 annotationProcessor "com.google.auto.service:auto-service:1.0-rc4"
+      否则不走processor
+    3.annotation 中的参数只能是常量
+    4.apply plugin: 'android-aspectjx' 在使用到aspectj的module里都要加上
+埋点有几种
+1、性能监控
+    1.1、方法执行时间
+    1.2、接口执行时间
+2、功能监控
+    2.1、界面打开统计
+    2.2、按钮点击统计
+        2.2.1、需要额外传参
+        2.2.2、无需额外传参
+        2.2.3、按钮复用导致额外判断参数

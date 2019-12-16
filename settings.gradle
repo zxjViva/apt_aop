@@ -1,0 +1,2 @@
+include ':app', ':needle-annotations', ':needle-compiler', ':needle-runtime'
+rootProject.name='AptAndAop'

@@ -1,0 +1,3 @@
+category1,action1,label1
+category2,action2,label2
+category3,action3,label3
