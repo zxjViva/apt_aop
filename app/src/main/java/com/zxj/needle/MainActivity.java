@@ -10,17 +10,20 @@ import android.widget.Toast;
 import com.zxj.needle_annotations.ClassAnotation;
 import com.zxj.needle_annotations.GaAnnotation;
 import com.zxj.needle_annotations.SorceAnotation;
+import com.zxj.needle_annotations.ViewBinder;
 import com.zxj.needle_runtime.GaTracker;
 import com.zxj.needle_runtime.Needle;
+import com.zxj.needle_runtime.ViewBinderInjector;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    @ViewBinder(id = R.id.bt1)
+    View bt1;
     String showName = "bt";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        View bt1 = findViewById(R.id.bt1);
+        ViewBinderInjector.bind(this);
         bt1.setOnClickListener(this);
         View bt2 = findViewById(R.id.bt2);
         bt2.setOnClickListener(this);

@@ -1,2 +1,2 @@
-include ':app', ':needle-annotations', ':needle-compiler', ':needle-runtime'
+include ':app', ':needle-annotations', ':needle-compiler', ':needle-runtime', ':mylibrary'
 rootProject.name='AptAndAop'
